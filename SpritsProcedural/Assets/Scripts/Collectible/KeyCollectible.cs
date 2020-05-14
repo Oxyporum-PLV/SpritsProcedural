@@ -7,5 +7,6 @@ public class KeyCollectible : ACollectible {
     protected override void OnCollect()
     {
         Player.Instance.KeyCount++;
+        Player.Instance.KeyCount++;
     }
 }
