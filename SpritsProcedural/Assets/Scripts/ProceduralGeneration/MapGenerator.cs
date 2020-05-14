@@ -32,7 +32,8 @@ public class MapGenerator : MonoBehaviour
     public List<GameObject> LiStartRoom = new List<GameObject>();
     public List<GameObject> LiEndRoom = new List<GameObject>();
     private List<Room> LiScRoom = new List<Room>();
-    public GameObject KeyRoom = new GameObject();
+    public GameObject KeyRoom;
+    private List<Room> liTriRoom = new List<Room>();
 
     private bool isInPlayMode = false;
 
@@ -119,6 +120,8 @@ public class MapGenerator : MonoBehaviour
 
         for (int i = 1; i < liPrincipalRoomPosition.Count; i++)
         {
+
+
             if(i == liPrincipalRoomPosition.Count - 1)
             {
                 GameObject room = Instantiate(LiEndRoom[Random.Range(0, LiEndRoom.Count - 1)]) as GameObject;
@@ -132,6 +135,12 @@ public class MapGenerator : MonoBehaviour
                 room.transform.position = liPrincipalRoomPosition[i];
             }
 
+            int v = 0;
+            if (i == liIdStartSecondaryRoom[v])
+            {
+                liTriRoom.Add(liRoomUse[liRoomUse.Count - 1]);
+                v++;
+            }
 
             Vector2 nextOffset = liPrincipalRoomPosition[i - 1] - liPrincipalRoomPosition[i];
             Debug.Log("room : " + i + "Offset : " + nextOffset);
@@ -248,7 +257,9 @@ public class MapGenerator : MonoBehaviour
                 liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
                 liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
                 if (i == 0)
-                    ;
+                {
+                    liTriRoom[j].LiScDoor[1].scDoor.SetState(Door.STATE.OPEN);
+                }
                 else
                     liRoomUse[i - 1].LiScDoor[1].scDoor.SetState(Door.STATE.OPEN);
             }
@@ -259,7 +270,9 @@ public class MapGenerator : MonoBehaviour
                 liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
                 liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
                 if (i == 0)
-                    ;
+                {
+                    liTriRoom[j].LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
+                }
                 else
                     liRoomUse[i - 1].LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
             }
@@ -270,7 +283,9 @@ public class MapGenerator : MonoBehaviour
                 liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.WALL);
                 liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
                 if (i == 0)
-                    ;
+                {
+                    liTriRoom[j].LiScDoor[3].scDoor.SetState(Door.STATE.OPEN);
+                }
                 else
                     liRoomUse[i - 1].LiScDoor[3].scDoor.SetState(Door.STATE.OPEN);
             }
@@ -281,7 +296,9 @@ public class MapGenerator : MonoBehaviour
                 liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.WALL);
                 liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
                 if (i == 0)
-                    ;
+                {
+                    liTriRoom[j].LiScDoor[2].scDoor.SetState(Door.STATE.OPEN);
+                }
                 else
                     liRoomUse[i - 1].LiScDoor[2].scDoor.SetState(Door.STATE.OPEN);
             }
