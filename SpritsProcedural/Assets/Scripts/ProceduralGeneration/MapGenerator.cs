@@ -45,12 +45,12 @@ public class MapGenerator : MonoBehaviour
         totalPrincipalRoom = Random.Range(minRoomCount, maxRoomCount + 1);
         lockedRoomCount = Random.Range(1, 3);
 
-        liIdLockedRoom.Add(Random.Range(3, (totalPrincipalRoom / 2) + 1));
+        liIdLockedRoom.Add(Random.Range(2, (totalPrincipalRoom / 2) + 1));
         liIdStartSecondaryRoom.Add(Random.Range(liIdLockedRoom[0] - 2, liIdLockedRoom[0] - 1));
         if (lockedRoomCount == 2)
         {
             liIdLockedRoom.Add(Random.Range(liIdLockedRoom[0] + 2, totalPrincipalRoom));
-            liIdStartSecondaryRoom.Add(Random.Range(liIdLockedRoom[0] - 2, liIdLockedRoom[0] - 1));
+            liIdStartSecondaryRoom.Add(Random.Range(liIdLockedRoom[1] - 2, liIdLockedRoom[1]));
         }
         //idKeyRoom = Random.Range(1, idLockedRoom);
 
@@ -58,12 +58,10 @@ public class MapGenerator : MonoBehaviour
         idRoom++;
         RandomNextRoom();
 
-        totalSecondaryRoom = Random.Range(minSecondaryRoomCount, maxSecondaryRoomCount + 1);
-        RandomSecondaryNextRoom(liPrincipalRoomPosition[liIdStartSecondaryRoom[0]]);
-        if (lockedRoomCount == 2)
+        for (int i = 0; i < lockedRoomCount; i++)
         {
             totalSecondaryRoom = Random.Range(minSecondaryRoomCount, maxSecondaryRoomCount + 1);
-            RandomSecondaryNextRoom(liPrincipalRoomPosition[liIdStartSecondaryRoom[0]]);
+            RandomSecondaryNextRoom(liPrincipalRoomPosition[liIdStartSecondaryRoom[i]]);
         }
 
         isInPlayMode = true;
@@ -87,9 +85,15 @@ public class MapGenerator : MonoBehaviour
 
             Gizmos.DrawSphere(liPrincipalRoomPosition[i], 0.1f);
 
-            if (i + 1 >= liPrincipalRoomPosition.Count) return;
+            if (i + 1 >= liPrincipalRoomPosition.Count) break;
             Gizmos.color = Color.red;
             Gizmos.DrawLine(liPrincipalRoomPosition[i], liPrincipalRoomPosition[i + 1]);
+        }
+
+        for (int i = 0; i < liSecondaryRoomPosition.Count; i++)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(liSecondaryRoomPosition[i], 0.1f);
         }
     }
     #endregion
@@ -135,11 +139,11 @@ public class MapGenerator : MonoBehaviour
 
     private void RandomSecondaryNextRoom(Vector2 branch)
     {
+        currentPos = branch;
         for (int i = 0; i < totalSecondaryRoom; i++)
         {
-            AssignSecondaryRoomPos(branch);
+            AssignSecondaryRoomPos(currentPos);
             liSecondaryRoomPosition.Add(currentPos);
-            //idRoom = i;
         }
     }
 
@@ -175,6 +179,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
         currentPos = currentTestPos;
+        Debug.Log(currentPos);
     }
 
 }
