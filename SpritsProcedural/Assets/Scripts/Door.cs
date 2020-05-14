@@ -7,7 +7,7 @@ public class Door : MonoBehaviour {
 
     public enum STATE {
         OPEN = 0,
-        CLOSED = 1,
+        Wall = 1,
         WALL = 2,
         SECRET = 3,
     }
@@ -36,7 +36,7 @@ public class Door : MonoBehaviour {
         _orientation = Utils.AngleToOrientation(-transform.eulerAngles.z);
 		if(closedGo.gameObject.activeSelf)
 		{
-			SetState(STATE.CLOSED);
+			SetState(STATE.Wall);
 		} else if (openGo.gameObject.activeSelf)
 		{
 			SetState(STATE.OPEN);
@@ -55,7 +55,7 @@ public class Door : MonoBehaviour {
             return;
 
         switch (_state) {
-            case STATE.CLOSED:
+            case STATE.Wall:
                 if (Player.Instance.KeyCount > 0)
                 {
                     Player.Instance.KeyCount--;
@@ -66,7 +66,7 @@ public class Door : MonoBehaviour {
 						Door[] doors = nextRoom.GetComponentsInChildren<Door>(true);
 						foreach(Door door in doors)
 						{
-							if (_orientation == Utils.OppositeOrientation(door.Orientation) && door._state == STATE.CLOSED)
+							if (_orientation == Utils.OppositeOrientation(door.Orientation) && door._state == STATE.Wall)
 							{
 								door.SetState(STATE.OPEN);
 							}
@@ -93,7 +93,7 @@ public class Door : MonoBehaviour {
         _state = state;
         switch(_state)
         {
-            case STATE.CLOSED:
+            case STATE.Wall:
                 if (closedGo) { closedGo.SetActive(true); }
                 break;
             case STATE.OPEN:

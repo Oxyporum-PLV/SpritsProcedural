@@ -126,36 +126,57 @@ public class MapGenerator : MonoBehaviour
         GameObject startRoom = Instantiate(liStartRoom[Random.Range(0, liStartRoom.Count - 1)]) as GameObject;
         liRoomUse.Add(startRoom.GetComponent<Room>());
         startRoom.transform.position = liPrincipalRoomPosition[0];
-        GameObject endRoom = Instantiate(liEndRoom[Random.Range(0, liEndRoom.Count - 1)]) as GameObject;
-        liRoomUse.Add(endRoom.GetComponent<Room>());
-        endRoom.transform.position = liPrincipalRoomPosition[liPrincipalRoomPosition.Count - 1];
 
         for (int i = 1; i < liPrincipalRoomPosition.Count -1; i++)
         {
             GameObject room = Instantiate(LiScRoom[Random.Range(0, liPrincipalRoomPosition.Count)].gameObject) as GameObject;
             liRoomUse.Add(room.GetComponent<Room>());
             room.transform.position = liPrincipalRoomPosition[i];
-            Vector2 nextOffset = liPrincipalRoomPosition[i] - liPrincipalRoomPosition[i - 1];
+
+            if(i == liPrincipalRoomPosition.Count - 2)
+            {
+                GameObject endRoom = Instantiate(liEndRoom[Random.Range(0, liEndRoom.Count - 1)]) as GameObject;
+                liRoomUse.Add(endRoom.GetComponent<Room>());
+                endRoom.transform.position = liPrincipalRoomPosition[liPrincipalRoomPosition.Count - 1];
+            }
+
+            Vector2 nextOffset = liPrincipalRoomPosition[i - 1] - liPrincipalRoomPosition[i];
             Debug.Log("room : " + i + "Offset : " + nextOffset);
             if (nextOffset.x == 11)
             {
                 liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
+                liRoomUse[i].LiScDoor[1].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
+
                 liRoomUse[i - 1].LiScDoor[1].scDoor.SetState(Door.STATE.OPEN);
             }
             else if (nextOffset.x == -11)
             {
-                liRoomUse[i].GetComponent<Room>().LiScDoor[1].scDoor.SetState(Door.STATE.OPEN);
-                liRoomUse[i -1].GetComponent<Room>().LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
+                liRoomUse[i].LiScDoor[1].scDoor.SetState(Door.STATE.OPEN); 
+                liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
+
+                liRoomUse[i -1].LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
             }
             else if (nextOffset.y == 9)
             {
-                liRoomUse[i].GetComponent<Room>().LiScDoor[2].scDoor.SetState(Door.STATE.OPEN);
-                liRoomUse[i -1].GetComponent<Room>().LiScDoor[3].scDoor.SetState(Door.STATE.OPEN);
+                liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.OPEN); 
+                liRoomUse[i].LiScDoor[1].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
+
+                liRoomUse[i -1].LiScDoor[3].scDoor.SetState(Door.STATE.OPEN);
             }
             else if (nextOffset.y == -9)
             {
-                liRoomUse[i].GetComponent<Room>().LiScDoor[3].scDoor.SetState(Door.STATE.OPEN);
-                liRoomUse[i - 1].GetComponent<Room>().LiScDoor[2].scDoor.SetState(Door.STATE.OPEN);
+                liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.OPEN);
+                liRoomUse[i].LiScDoor[1].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
+
+                liRoomUse[i - 1].LiScDoor[2].scDoor.SetState(Door.STATE.OPEN);
             }
         }
     }
