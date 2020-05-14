@@ -6,9 +6,12 @@ using UnityEngine;
 public class Room : MonoBehaviour {
 
     public bool isStartRoom = false;
+    public bool isEndRoom = false;
 	public Vector2Int position = Vector2Int.zero;
-
-	private TilemapGroup _tilemapGroup;
+    public bool up, down, left, right, openUp,openDown ,openLeft,openRight;
+    //public int type;
+   
+    private TilemapGroup _tilemapGroup;
 
 	public static List<Room> allRooms = new List<Room>();
 
@@ -65,4 +68,10 @@ public class Room : MonoBehaviour {
 		position.z = 0;
 		return (_GetWorldRoomBounds().Contains(position));
 	}
+
+    public void RoomPosition()
+    {
+       
+    }
 }
+
