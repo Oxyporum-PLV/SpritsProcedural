@@ -8,10 +8,13 @@ public class Room : MonoBehaviour {
     public bool isStartRoom = false;
     public bool isEndRoom = false;
 	public Vector2Int position = Vector2Int.zero;
-    public bool up, down, left, right, openUp,openDown ,openLeft,openRight;
+    //public bool up, down, left, right, openUp,openDown ,openLeft,openRight;
     //public int type;
    
     private TilemapGroup _tilemapGroup;
+
+    [Tooltip("Element0 = Right, Element1 = Left, Element2 = Top, Element3 = Bot")]
+    public List<door> LiScDoor = new List<door>();
 
 	public static List<Room> allRooms = new List<Room>();
 
@@ -75,3 +78,10 @@ public class Room : MonoBehaviour {
     }
 }
 
+[System.Serializable]
+public class door
+{
+    public bool itNeedKey = false;
+    public bool isOpen = false;
+    public Door scDoor; 
+}

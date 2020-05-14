@@ -68,6 +68,7 @@ public class MapGenerator : MonoBehaviour
             totalSecondaryRoom = Random.Range(minSecondaryRoomCount, maxSecondaryRoomCount + 1);
             RandomSecondaryNextRoom(liPrincipalRoomPosition[liIdStartSecondaryRoom[i]]);
         }
+        AddRooms();
 
         isInPlayMode = true;
     }
@@ -105,7 +106,36 @@ public class MapGenerator : MonoBehaviour
 
     private void AddRooms()
     {
+        List<GameObject> liStartRoom = new List<GameObject>();
+        List<GameObject> liEndRoom = new List<GameObject>();
 
+        foreach (Room room in LiScRoom)
+        {
+            if (room.isStartRoom)
+            {
+                liStartRoom.Add(room.gameObject);
+            }
+            else if (room.isEndRoom)
+            {
+                liEndRoom.Add(room.gameObject);
+            }
+        }
+
+        for (int i = 1; i < liPrincipalRoomPosition.Count -1; i++)
+        {
+            GameObject room = Instantiate(LiScRoom[Random.Range(0, liPrincipalRoomPosition.Count)].gameObject) as GameObject;
+            room.transform.position = liPrincipalRoomPosition[i];
+            //foreach(Room room in LiScRoom)
+            //{
+            //    GameObject room = Instantiate()
+            //}
+        }
+
+        GameObject startRoom = Instantiate(liStartRoom[Random.Range(0, liStartRoom.Count - 1)]) as GameObject;
+        startRoom.transform.position = liPrincipalRoomPosition[0];
+        Debug.Log(liPrincipalRoomPosition[0]);
+        GameObject endRoom = Instantiate(liEndRoom[Random.Range(0, liEndRoom.Count - 1)]) as GameObject;
+        endRoom.transform.position = liPrincipalRoomPosition[liPrincipalRoomPosition.Count -1];
     }
 
     private void RandomNextRoom()
@@ -127,13 +157,13 @@ public class MapGenerator : MonoBehaviour
         currentTestPos = currentPos;
 
         if (currentOrient == 0)
-            currentTestPos.x += 1;
+            currentTestPos.x += 11;
         else if (currentOrient == 1)
-            currentTestPos.x += -1;
+            currentTestPos.x += -11;
         else if (currentOrient == 2)
-            currentTestPos.y += 1;
+            currentTestPos.y += 9;
         else
-            currentTestPos.y += -1;
+            currentTestPos.y += -9;
 
         foreach (Vector2 pos in liPrincipalRoomPosition)
         {
@@ -142,7 +172,6 @@ public class MapGenerator : MonoBehaviour
                 AssignPrincipalRoomPos();
                 return;
             }
-
         }
         currentPos = currentTestPos;
     }
@@ -164,13 +193,13 @@ public class MapGenerator : MonoBehaviour
         currentTestPos = branch;
 
         if (currentOrient == 0)
-            currentTestPos.x += 1;
+            currentTestPos.x += 11;
         else if (currentOrient == 1)
-            currentTestPos.x += -1;
+            currentTestPos.x += -11;
         else if (currentOrient == 2)
-            currentTestPos.y += 1;
+            currentTestPos.y += 9;
         else
-            currentTestPos.y += -1;
+            currentTestPos.y += -9;
 
         foreach (Vector2 pos in liPrincipalRoomPosition)
         {
