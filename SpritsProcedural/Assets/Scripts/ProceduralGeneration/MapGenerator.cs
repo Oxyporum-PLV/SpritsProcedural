@@ -35,6 +35,8 @@ public class MapGenerator : MonoBehaviour
     public GameObject KeyRoom;
     private List<Room> liTriRoom = new List<Room>();
 
+    private int lastSecondaryRoom = 0;
+
     private bool isInPlayMode = false;
 
 
@@ -60,6 +62,7 @@ public class MapGenerator : MonoBehaviour
         {
             liIdLockedRoom.Add(Random.Range(liIdLockedRoom[0] + 2, totalPrincipalRoom));
             liIdStartSecondaryRoom.Add(Random.Range(liIdLockedRoom[0], liIdLockedRoom[1]));
+            Debug.Log(liIdStartSecondaryRoom[1]);
         }
         //idKeyRoom = Random.Range(1, idLockedRoom);
 
@@ -73,6 +76,9 @@ public class MapGenerator : MonoBehaviour
             totalSecondaryRoom = Random.Range(minSecondaryRoomCount, maxSecondaryRoomCount + 1);
             RandomSecondaryNextRoom(liPrincipalRoomPosition[liIdStartSecondaryRoom[i]]);
             AddSecondaryRoom(totalSecondaryRoom, i);
+            liSecondaryRoomPosition.Clear();
+           // lastSecondaryRoom = totalSecondaryRoom;
+
         }
 
         isInPlayMode = true;
@@ -110,6 +116,7 @@ public class MapGenerator : MonoBehaviour
     #endregion
 
 
+    int v = 0;
     private void AddPrincipalRooms()
     {
         List<Room> liRoomUse = new List<Room>();
@@ -135,15 +142,17 @@ public class MapGenerator : MonoBehaviour
                 room.transform.position = liPrincipalRoomPosition[i];
             }
 
-            int v = 0;
-            if (i == liIdStartSecondaryRoom[v])
+            for (v = 0; v < liIdStartSecondaryRoom.Count; v++)
             {
-                liTriRoom.Add(liRoomUse[liRoomUse.Count - 1]);
-                v++;
+                if (i == liIdStartSecondaryRoom[v])
+                {
+                    liTriRoom.Add(liRoomUse[liRoomUse.Count - 1]);
+                    Debug.Log(liIdStartSecondaryRoom[v]);
+                }
             }
 
+
             Vector2 nextOffset = liPrincipalRoomPosition[i - 1] - liPrincipalRoomPosition[i];
-            Debug.Log("room : " + i + "Offset : " + nextOffset);
             
             if (nextOffset.x == 11)
             {
@@ -386,7 +395,6 @@ public class MapGenerator : MonoBehaviour
             }
         }
         currentPos = currentTestPos;
-        Debug.Log(currentPos);
     }
 
 }
