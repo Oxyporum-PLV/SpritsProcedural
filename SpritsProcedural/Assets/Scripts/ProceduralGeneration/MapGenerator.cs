@@ -179,10 +179,10 @@ public class MapGenerator : MonoBehaviour
 
 }
 
-[System.Serializable]
-public class Rooms
-{
-    public enum RoomState { startRoom = 0, endRoom, normalRoom, keyRoom, lockedRoom, secretRoom}
-    public RoomState roomState = RoomState.startRoom;
-    public List<GameObject> LiRoom = new List<GameObject>();
-}
+//[System.Serializable]
+//public class Rooms
+//{
+//    public enum RoomState { startRoom = 0, endRoom, normalRoom, keyRoom, lockedRoom, secretRoom}
+//    public RoomState roomState = RoomState.startRoom;
+//    public List<GameObject> LiRoom = new List<GameObject>();
+//}
