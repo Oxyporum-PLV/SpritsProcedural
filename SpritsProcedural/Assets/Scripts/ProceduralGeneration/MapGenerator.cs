@@ -32,6 +32,7 @@ public class MapGenerator : MonoBehaviour
     public List<GameObject> LiStartRoom = new List<GameObject>();
     public List<GameObject> LiEndRoom = new List<GameObject>();
     private List<Room> LiScRoom = new List<Room>();
+    public GameObject KeyRoom = new GameObject();
 
     private bool isInPlayMode = false;
 
@@ -63,14 +64,15 @@ public class MapGenerator : MonoBehaviour
 
         liPrincipalRoomPosition.Add(Vector2.zero); // startRoom
         idRoom++;
-        RandomNextRoom();
+        RandomPrincipalNextRoom();
 
+        AddPrincipalRooms();
         for (int i = 0; i < lockedRoomCount; i++)
         {
             totalSecondaryRoom = Random.Range(minSecondaryRoomCount, maxSecondaryRoomCount + 1);
             RandomSecondaryNextRoom(liPrincipalRoomPosition[liIdStartSecondaryRoom[i]]);
+            AddSecondaryRoom(totalSecondaryRoom, i);
         }
-        AddRooms();
 
         isInPlayMode = true;
     }
@@ -107,7 +109,7 @@ public class MapGenerator : MonoBehaviour
     #endregion
 
 
-    private void AddRooms()
+    private void AddPrincipalRooms()
     {
         List<Room> liRoomUse = new List<Room>();
 
@@ -125,7 +127,7 @@ public class MapGenerator : MonoBehaviour
             }
             else
             {
-                GameObject room = Instantiate(LiScRoom[Random.Range(0, liPrincipalRoomPosition.Count)].gameObject) as GameObject;
+                GameObject room = Instantiate(LiScRoom[Random.Range(0, LiScRoom.Count)].gameObject) as GameObject;
                 liRoomUse.Add(room.GetComponent<Room>());
                 room.transform.position = liPrincipalRoomPosition[i];
             }
@@ -136,12 +138,22 @@ public class MapGenerator : MonoBehaviour
             
             if (nextOffset.x == 11)
             {
+
                 liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
                 liRoomUse[i].LiScDoor[1].scDoor.SetState(Door.STATE.WALL);
                 liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
                 liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
 
                 liRoomUse[i - 1].LiScDoor[1].scDoor.SetState(Door.STATE.OPEN);
+
+                foreach (int id in liIdLockedRoom)
+                {
+                    if (id == i)
+                    {
+                        liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.Wall);
+                        liRoomUse[i - 1].LiScDoor[1].scDoor.SetState(Door.STATE.Wall);
+                    }
+                }
             }
             else if (nextOffset.x == -11)
             {
@@ -151,6 +163,15 @@ public class MapGenerator : MonoBehaviour
                 liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
 
                 liRoomUse[i -1].LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
+
+                foreach (int id in liIdLockedRoom)
+                {
+                    if (id == i)
+                    {
+                        liRoomUse[i].LiScDoor[1].scDoor.SetState(Door.STATE.Wall);
+                        liRoomUse[i - 1].LiScDoor[0].scDoor.SetState(Door.STATE.Wall);
+                    }
+                }
             }
             else if (nextOffset.y == 9)
             {
@@ -160,6 +181,15 @@ public class MapGenerator : MonoBehaviour
                 liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
 
                 liRoomUse[i -1].LiScDoor[3].scDoor.SetState(Door.STATE.OPEN);
+
+                foreach (int id in liIdLockedRoom)
+                {
+                    if (id == i)
+                    {
+                        liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.Wall);
+                        liRoomUse[i - 1].LiScDoor[3].scDoor.SetState(Door.STATE.Wall);
+                    }
+                }
             }
             else if (nextOffset.y == -9)
             {
@@ -169,11 +199,97 @@ public class MapGenerator : MonoBehaviour
                 liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
 
                 liRoomUse[i - 1].LiScDoor[2].scDoor.SetState(Door.STATE.OPEN);
+
+                foreach (int id in liIdLockedRoom)
+                {
+                    if (id == i)
+                    {
+                        liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.Wall);
+                        liRoomUse[i - 1].LiScDoor[2].scDoor.SetState(Door.STATE.Wall);
+                    }
+                }
             }
         }
     }
 
-    private void RandomNextRoom()
+    private void AddSecondaryRoom(int totalRoom, int j)
+    {
+        List<Room> liRoomUse = new List<Room>();
+        for (int i = 0; i < totalRoom; i++)
+        {
+            if(i == totalRoom - 1)
+            {
+                GameObject keyRoom = Instantiate(KeyRoom) as GameObject; 
+                liRoomUse.Add(keyRoom.GetComponent<Room>());
+                keyRoom.transform.position = liSecondaryRoomPosition[i];
+                // keyRoom
+            }
+            else
+            {
+                GameObject room = Instantiate(LiScRoom[Random.Range(0, LiScRoom.Count)].gameObject) as GameObject;
+                liRoomUse.Add(room.GetComponent<Room>());
+                room.transform.position = liSecondaryRoomPosition[i];
+            }
+            Vector2 nextOffset;
+            if(i == 0)
+            {
+                nextOffset = liPrincipalRoomPosition[liIdStartSecondaryRoom[j]] - liSecondaryRoomPosition[i];
+            }
+            else
+            {
+                nextOffset = liSecondaryRoomPosition[i - 1] - liSecondaryRoomPosition[i];
+            }
+
+            if (nextOffset.x == 11)
+            {
+
+                liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
+                liRoomUse[i].LiScDoor[1].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
+                if (i == 0)
+                    ;
+                else
+                    liRoomUse[i - 1].LiScDoor[1].scDoor.SetState(Door.STATE.OPEN);
+            }
+            else if (nextOffset.x == -11)
+            {
+                liRoomUse[i].LiScDoor[1].scDoor.SetState(Door.STATE.OPEN);
+                liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
+                if (i == 0)
+                    ;
+                else
+                    liRoomUse[i - 1].LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
+            }
+            else if (nextOffset.y == 9)
+            {
+                liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.OPEN);
+                liRoomUse[i].LiScDoor[1].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.WALL);
+                if (i == 0)
+                    ;
+                else
+                    liRoomUse[i - 1].LiScDoor[3].scDoor.SetState(Door.STATE.OPEN);
+            }
+            else if (nextOffset.y == -9)
+            {
+                liRoomUse[i].LiScDoor[3].scDoor.SetState(Door.STATE.OPEN);
+                liRoomUse[i].LiScDoor[1].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.WALL);
+                liRoomUse[i].LiScDoor[2].scDoor.SetState(Door.STATE.WALL);
+                if (i == 0)
+                    ;
+                else
+                    liRoomUse[i - 1].LiScDoor[2].scDoor.SetState(Door.STATE.OPEN);
+            }
+
+        }
+    }
+
+    private void RandomPrincipalNextRoom()
     {
         for (int i = idRoom ; i < totalPrincipalRoom; i++)
         {
