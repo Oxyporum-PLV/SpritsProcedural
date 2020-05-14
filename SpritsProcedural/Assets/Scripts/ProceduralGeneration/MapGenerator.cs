@@ -28,8 +28,8 @@ public class MapGenerator : MonoBehaviour
     private List<Vector2> liSecondaryRoomPosition = new List<Vector2>();
     private List<int> liIdKeyRoom = new List<int>();
 
-
-    [SerializeField] private List<Rooms> liRooms = new List<Rooms>();
+    public List<GameObject> LiRoomGameObject = new List<GameObject>();
+    private List<Room> LiScRoom = new List<Room>();
 
     private bool isInPlayMode = false;
 
@@ -42,6 +42,11 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
+        foreach(GameObject room in LiRoomGameObject)
+        {
+            LiScRoom.Add(room.GetComponent<Room>());
+        }
+
         totalPrincipalRoom = Random.Range(minRoomCount, maxRoomCount + 1);
         lockedRoomCount = Random.Range(1, 3);
 
@@ -97,6 +102,11 @@ public class MapGenerator : MonoBehaviour
         }
     }
     #endregion
+
+    private void AddRooms()
+    {
+
+    }
 
     private void RandomNextRoom()
     {
