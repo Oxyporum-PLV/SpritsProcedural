@@ -55,11 +55,11 @@ public class MapGenerator : MonoBehaviour
         lockedRoomCount = Random.Range(1, 3);
 
         liIdLockedRoom.Add(Random.Range(2, (totalPrincipalRoom / 2) + 1));
-        liIdStartSecondaryRoom.Add(Random.Range(liIdLockedRoom[0] - 2, liIdLockedRoom[0] - 1));
+        liIdStartSecondaryRoom.Add(Random.Range(1, liIdLockedRoom[0]));
         if (lockedRoomCount == 2)
         {
             liIdLockedRoom.Add(Random.Range(liIdLockedRoom[0] + 2, totalPrincipalRoom));
-            liIdStartSecondaryRoom.Add(Random.Range(liIdLockedRoom[1] - 2, liIdLockedRoom[1]));
+            liIdStartSecondaryRoom.Add(Random.Range(liIdLockedRoom[0], liIdLockedRoom[1]));
         }
         //idKeyRoom = Random.Range(1, idLockedRoom);
 
