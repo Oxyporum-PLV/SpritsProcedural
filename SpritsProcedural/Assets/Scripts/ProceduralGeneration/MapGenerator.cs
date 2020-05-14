@@ -104,6 +104,7 @@ public class MapGenerator : MonoBehaviour
     }
     #endregion
 
+
     private void AddRooms()
     {
         List<GameObject> liStartRoom = new List<GameObject>();
@@ -127,21 +128,25 @@ public class MapGenerator : MonoBehaviour
         liRoomUse.Add(startRoom.GetComponent<Room>());
         startRoom.transform.position = liPrincipalRoomPosition[0];
 
-        for (int i = 1; i < liPrincipalRoomPosition.Count -1; i++)
+        for (int i = 1; i < liPrincipalRoomPosition.Count; i++)
         {
-            GameObject room = Instantiate(LiScRoom[Random.Range(0, liPrincipalRoomPosition.Count)].gameObject) as GameObject;
-            liRoomUse.Add(room.GetComponent<Room>());
-            room.transform.position = liPrincipalRoomPosition[i];
-
-            if(i == liPrincipalRoomPosition.Count - 2)
+            if(i == liPrincipalRoomPosition.Count - 1)
             {
-                GameObject endRoom = Instantiate(liEndRoom[Random.Range(0, liEndRoom.Count - 1)]) as GameObject;
-                liRoomUse.Add(endRoom.GetComponent<Room>());
-                endRoom.transform.position = liPrincipalRoomPosition[liPrincipalRoomPosition.Count - 1];
+                GameObject room = Instantiate(liEndRoom[Random.Range(0, liEndRoom.Count - 1)]) as GameObject;
+                liRoomUse.Add(room.GetComponent<Room>());
+                room.transform.position = liPrincipalRoomPosition[i];
             }
+            else
+            {
+                GameObject room = Instantiate(LiScRoom[Random.Range(0, liPrincipalRoomPosition.Count)].gameObject) as GameObject;
+                liRoomUse.Add(room.GetComponent<Room>());
+                room.transform.position = liPrincipalRoomPosition[i];
+            }
+
 
             Vector2 nextOffset = liPrincipalRoomPosition[i - 1] - liPrincipalRoomPosition[i];
             Debug.Log("room : " + i + "Offset : " + nextOffset);
+            
             if (nextOffset.x == 11)
             {
                 liRoomUse[i].LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
