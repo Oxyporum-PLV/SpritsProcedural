@@ -748,7 +748,7 @@ MonoBehaviour:
     scDoor: {fileID: 143443706480611062}
   - itNeedKey: 0
     isOpen: 1
-    scDoor: {fileID: 0}
+    scDoor: {fileID: 8600363143170565076}
 --- !u!50 &6585524726994589353
 Rigidbody2D:
   serializedVersion: 4
@@ -1331,6 +1331,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e220ae9ccd75bd04fa295d970d7c2202, type: 3}
+--- !u!114 &8600363143170565076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6610912639909285364, guid: e220ae9ccd75bd04fa295d970d7c2202,
+    type: 3}
+  m_PrefabInstance: {fileID: 3234726595912920608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8764966184717015324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713f1094d6bc49a4d93b8279be3707bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &725492283639210625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2807283877054237857, guid: e220ae9ccd75bd04fa295d970d7c2202,
@@ -1412,15 +1424,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780d3c292fcda5e498755efe93cf622a, type: 3}
---- !u!1 &2878245349239308036 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7249761477647285960, guid: 780d3c292fcda5e498755efe93cf622a,
-    type: 3}
-  m_PrefabInstance: {fileID: 4858758661107745228}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8745026950652860926 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4193226117228763186, guid: 780d3c292fcda5e498755efe93cf622a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4858758661107745228}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2878245349239308036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7249761477647285960, guid: 780d3c292fcda5e498755efe93cf622a,
     type: 3}
   m_PrefabInstance: {fileID: 4858758661107745228}
   m_PrefabAsset: {fileID: 0}
