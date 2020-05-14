@@ -4076,6 +4076,7 @@ MonoBehaviour:
   LiEndRoom:
   - {fileID: 2761914752629806, guid: 3fa17debfb158bc4d9a386616f5e39f0, type: 3}
   - {fileID: 4425205633961544245, guid: bd3f4aae50f90e448b943cd455eadc63, type: 3}
+  KeyRoom: {fileID: 5586603704767714055, guid: b93eee67688dab74893ffcd76c43396f, type: 3}
 --- !u!4 &1923743113
 Transform:
   m_ObjectHideFlags: 0
