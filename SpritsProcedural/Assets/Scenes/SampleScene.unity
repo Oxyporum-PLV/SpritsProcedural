@@ -4047,8 +4047,6 @@ MonoBehaviour:
   maxRoomCount: 15
   minRoomCount: 10
   LiRoomGameObject:
-  - {fileID: 2761914752629806, guid: 3fa17debfb158bc4d9a386616f5e39f0, type: 3}
-  - {fileID: 5586603704767714055, guid: 2eadddd6d6de9834eb6cc5a0334db267, type: 3}
   - {fileID: 7255586396445586598, guid: 9ee4571b6c42bea4cbbb217595eb9d4f, type: 3}
   - {fileID: 2981608708779347869, guid: f904f862aed77634ab7748e0cc6c5f62, type: 3}
   - {fileID: 5437405395230211219, guid: d0ae98d07b7882a4a864981885510c8a, type: 3}
@@ -4069,11 +4067,15 @@ MonoBehaviour:
   - {fileID: 323358570044930303, guid: 8169cc6441e17b9439afea755c9c0090, type: 3}
   - {fileID: 5151587781234583221, guid: de05c94fd3f4b9c4da077af13d00aca2, type: 3}
   - {fileID: 7025455620126526141, guid: 55b5fc41f31d6a44ab507a18fc3cf752, type: 3}
-  - {fileID: 4425205633961544245, guid: bd3f4aae50f90e448b943cd455eadc63, type: 3}
-  - {fileID: 5280787564404974323, guid: b190acc015a11b349871cd1266d74b41, type: 3}
   - {fileID: 8616064821011033692, guid: eba576bd78a60ce42ab4677f5497d531, type: 3}
   - {fileID: 7239560420627648773, guid: 9939b11fec3fe6640a2caad098a604ce, type: 3}
   - {fileID: 1728059688817079287, guid: bcb53d3bfd3570847a263655651d1b79, type: 3}
+  LiStartRoom:
+  - {fileID: 5280787564404974323, guid: b190acc015a11b349871cd1266d74b41, type: 3}
+  - {fileID: 5586603704767714055, guid: 2eadddd6d6de9834eb6cc5a0334db267, type: 3}
+  LiEndRoom:
+  - {fileID: 2761914752629806, guid: 3fa17debfb158bc4d9a386616f5e39f0, type: 3}
+  - {fileID: 4425205633961544245, guid: bd3f4aae50f90e448b943cd455eadc63, type: 3}
 --- !u!4 &1923743113
 Transform:
   m_ObjectHideFlags: 0

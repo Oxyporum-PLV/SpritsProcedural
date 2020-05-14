@@ -29,6 +29,8 @@ public class MapGenerator : MonoBehaviour
     private List<int> liIdKeyRoom = new List<int>();
 
     public List<GameObject> LiRoomGameObject = new List<GameObject>();
+    public List<GameObject> LiStartRoom = new List<GameObject>();
+    public List<GameObject> LiEndRoom = new List<GameObject>();
     private List<Room> LiScRoom = new List<Room>();
 
     private bool isInPlayMode = false;
@@ -107,24 +109,9 @@ public class MapGenerator : MonoBehaviour
 
     private void AddRooms()
     {
-        List<GameObject> liStartRoom = new List<GameObject>();
-        List<GameObject> liEndRoom = new List<GameObject>();
-
-        foreach (Room room in LiScRoom)
-        {
-            if (room.isStartRoom)
-            {
-                liStartRoom.Add(room.gameObject);
-            }
-            else if (room.isEndRoom)
-            {
-                liEndRoom.Add(room.gameObject);
-            }
-        }
-
         List<Room> liRoomUse = new List<Room>();
 
-        GameObject startRoom = Instantiate(liStartRoom[Random.Range(0, liStartRoom.Count - 1)]) as GameObject;
+        GameObject startRoom = Instantiate(LiStartRoom[Random.Range(0, LiStartRoom.Count - 1)]) as GameObject;
         liRoomUse.Add(startRoom.GetComponent<Room>());
         startRoom.transform.position = liPrincipalRoomPosition[0];
 
@@ -132,7 +119,7 @@ public class MapGenerator : MonoBehaviour
         {
             if(i == liPrincipalRoomPosition.Count - 1)
             {
-                GameObject room = Instantiate(liEndRoom[Random.Range(0, liEndRoom.Count - 1)]) as GameObject;
+                GameObject room = Instantiate(LiEndRoom[Random.Range(0, LiEndRoom.Count - 1)]) as GameObject;
                 liRoomUse.Add(room.GetComponent<Room>());
                 room.transform.position = liPrincipalRoomPosition[i];
             }
