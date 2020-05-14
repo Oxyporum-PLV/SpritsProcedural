@@ -1548,6 +1548,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5d44185aad88b4297428a00f134b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRoomCount: 15
+  minRoomCount: 10
+  liRooms:
+  - roomState: 0
+    LiRoom: []
+  - roomState: 0
+    LiRoom: []
 --- !u!4 &512014194
 Transform:
   m_ObjectHideFlags: 0
