@@ -35,6 +35,10 @@ public class MapGenerator : MonoBehaviour
     public GameObject KeyRoom;
     private List<Room> liTriRoom = new List<Room>();
 
+    public List<Room> liAllRoom = new List<Room>();
+
+    public GameObject SecretRoom;
+
     private int lastSecondaryRoom = 0;
 
     private bool isInPlayMode = false;
@@ -123,22 +127,24 @@ public class MapGenerator : MonoBehaviour
 
         GameObject startRoom = Instantiate(LiStartRoom[Random.Range(0, LiStartRoom.Count - 1)]) as GameObject;
         liRoomUse.Add(startRoom.GetComponent<Room>());
+        liAllRoom.Add(liRoomUse[liRoomUse.Count - 1]);
+
         startRoom.transform.position = liPrincipalRoomPosition[0];
 
         for (int i = 1; i < liPrincipalRoomPosition.Count; i++)
         {
-
-
             if(i == liPrincipalRoomPosition.Count - 1)
             {
                 GameObject room = Instantiate(LiEndRoom[Random.Range(0, LiEndRoom.Count - 1)]) as GameObject;
                 liRoomUse.Add(room.GetComponent<Room>());
+                liAllRoom.Add(liRoomUse[liRoomUse.Count - 1]);
                 room.transform.position = liPrincipalRoomPosition[i];
             }
             else
             {
                 GameObject room = Instantiate(LiScRoom[Random.Range(0, LiScRoom.Count)].gameObject) as GameObject;
                 liRoomUse.Add(room.GetComponent<Room>());
+                liAllRoom.Add(liRoomUse[liRoomUse.Count - 1]);
                 room.transform.position = liPrincipalRoomPosition[i];
             }
 
@@ -239,6 +245,7 @@ public class MapGenerator : MonoBehaviour
             {
                 GameObject keyRoom = Instantiate(KeyRoom) as GameObject; 
                 liRoomUse.Add(keyRoom.GetComponent<Room>());
+                liAllRoom.Add(liRoomUse[liRoomUse.Count - 1]);
                 keyRoom.transform.position = liSecondaryRoomPosition[i];
                 // keyRoom
             }
@@ -246,6 +253,7 @@ public class MapGenerator : MonoBehaviour
             {
                 GameObject room = Instantiate(LiScRoom[Random.Range(0, LiScRoom.Count)].gameObject) as GameObject;
                 liRoomUse.Add(room.GetComponent<Room>());
+                liAllRoom.Add(liRoomUse[liRoomUse.Count - 1]);
                 room.transform.position = liSecondaryRoomPosition[i];
             }
             Vector2 nextOffset;
@@ -311,7 +319,6 @@ public class MapGenerator : MonoBehaviour
                 else
                     liRoomUse[i - 1].LiScDoor[2].scDoor.SetState(Door.STATE.OPEN);
             }
-
         }
     }
 
@@ -395,6 +402,34 @@ public class MapGenerator : MonoBehaviour
             }
         }
         currentPos = currentTestPos;
+    }
+    
+    public void AssignSecrectRoom()
+    {
+        currentOrient = arrOrient[Random.Range(0, arrOrient.Length)];
+        int idRandomRoom = Random.Range(0, liAllRoom.Count - 1);
+        Room testRoom = liAllRoom[idRandomRoom];
+
+        Vector2 currentTestPos = new Vector2();
+        currentTestPos = new Vector2(testRoom.position.x + 11, testRoom.position.y);
+
+        for (int i = 0; i < liAllRoom.Count; i++)
+        {
+            if(i!= idRandomRoom)
+            {
+                if (currentTestPos == new Vector2(liAllRoom[i].transform.position.x, liAllRoom[i].transform.position.y))
+                {
+                    AssignSecrectRoom();
+                    return;
+                }
+            }
+        }
+
+        GameObject secretRoom = Instantiate(SecretRoom);
+        secretRoom.transform.position = currentTestPos;
+        Room currentRoom = secretRoom.GetComponent<Room>();
+        currentRoom.LiScDoor[1].scDoor.SetState(Door.STATE.OPEN);
+        testRoom.LiScDoor[0].scDoor.SetState(Door.STATE.OPEN);
     }
 
 }
