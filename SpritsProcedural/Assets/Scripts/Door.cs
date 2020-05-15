@@ -66,7 +66,7 @@ public class Door : MonoBehaviour {
                     
 					if(nextRoom)
 					{
-                        Compteur.Instance.CompteurInscrease();
+                        
                         Door[] doors = nextRoom.GetComponentsInChildren<Door>(true);
 						foreach(Door door in doors)
 						{

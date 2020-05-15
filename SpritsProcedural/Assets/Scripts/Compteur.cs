@@ -10,6 +10,7 @@ public class Compteur : MonoBehaviour
     public float currentCompteur = 0;
     public float _compteurmax = 6;
     Text text;
+    private bool IsActivateSecretRoom = false;
     
     
     public Room roomStart1, roomStart2 , roomEnd1, roomEnd2, roomSecret;
@@ -19,8 +20,7 @@ public class Compteur : MonoBehaviour
         Instance = this;
         text = GetComponent<Text>();
         
-        currentCompteur = Random.Range(3, 5);
-
+        currentCompteur = Random.Range(4, 6);
     }
 
     // Update is called once per frame
@@ -28,27 +28,30 @@ public class Compteur : MonoBehaviour
     {
 
         text.text = currentCompteur.ToString("0");
-        CompteurStart();
+        
     }
 
     public void CompteurStart()
     {
-        currentCompteur -= Time.deltaTime;
+        if (IsActivateSecretRoom)
+        {
+            return;
+        }
+        currentCompteur -= 1;
 
         if (currentCompteur <= 0)
         {
-
+            IsActivateSecretRoom = true;
+            DesactiveText();
             currentCompteur = _compteurmax;
             MapGenerator.Instance.AssignSecrectRoom();
         }
+
         
-
     }
-
-    public void CompteurInscrease()
+    public void DesactiveText()
     {
-        currentCompteur -= 0.5f;
-        Debug.Log("-1");
+        text.text = "";
     }
-    
+
 }

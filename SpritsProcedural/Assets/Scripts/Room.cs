@@ -13,7 +13,7 @@ public class Room : MonoBehaviour {
     //public bool up, down, left, right, openUp,openDown ,openLeft,openRight;
     //public int type;
     // Compteur :
-    public GameObject compteur;
+     public Compteur compteur;
 
     private TilemapGroup _tilemapGroup;
     
@@ -25,7 +25,9 @@ public class Room : MonoBehaviour {
 
     void Awake()
     {
-        
+        compteur= FindObjectOfType<Compteur>();
+        compteur.enabled = true;
+        compteur.DesactiveText();
         _tilemapGroup = GetComponentInChildren<TilemapGroup>();
 		allRooms.Add(this);
 	}
@@ -42,33 +44,34 @@ public class Room : MonoBehaviour {
         if (isStartRoom)
         {
             OnEnterRoom();
-            compteur.SetActive(false);
+            compteur.enabled = false;
         }
        
 
         if (isSecretRoom)
         {
-            compteur.SetActive(false);
+            compteur.enabled = false;
         }
         
 
         if (isEndRoom)
         {
-            compteur.SetActive(false);
+            compteur.enabled = false;
         }
        
 
     }
 
-
     public void OnEnterRoom()
     {
+        
         CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
         Bounds cameraBounds = _GetWorldRoomBounds();
         cameraFollow.SetBounds(cameraBounds);
 		Player.Instance.EnterRoom(this);
-        compteur.SetActive(true);
-       
+        compteur.enabled = true;
+        compteur.CompteurStart();
+
     }
 
 

@@ -620,7 +620,7 @@ MonoBehaviour:
   isEndRoom: 0
   isSecretRoom: 0
   position: {x: 1, y: 0}
-  compteur: {fileID: 7105606758365773982}
+  compteur: {fileID: 0}
   LiScDoor:
   - itNeedKey: 0
     isOpen: 1
@@ -1061,12 +1061,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05893f3d180bc69418fc7282dad84021, type: 3}
---- !u!1 &7105606758365773982 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2986395676179246292, guid: 05893f3d180bc69418fc7282dad84021,
-    type: 3}
-  m_PrefabInstance: {fileID: 5471276204938816586}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7105606758365773954 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2986395676179246280, guid: 05893f3d180bc69418fc7282dad84021,
