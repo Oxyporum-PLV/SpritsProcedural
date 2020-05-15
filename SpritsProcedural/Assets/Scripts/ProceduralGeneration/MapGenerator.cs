@@ -412,7 +412,6 @@ public class MapGenerator : MonoBehaviour
 
         Vector2 currentTestPos = new Vector2();
         currentTestPos = new Vector2(testRoom.transform.position.x + 11, testRoom.transform.position.y);
-        Debug.Log(currentTestPos);
 
         for (int i = 0; i < liAllRoom.Count; i++)
         {
