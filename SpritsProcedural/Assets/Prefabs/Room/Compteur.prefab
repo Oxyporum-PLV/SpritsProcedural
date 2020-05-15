@@ -95,11 +95,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentCompteur: 0
   _compteurmax: 5
-  roomStart1: {fileID: 0}
-  roomStart2: {fileID: 0}
-  roomEnd1: {fileID: 0}
-  roomEnd2: {fileID: 0}
-  roomSecret: {fileID: 0}
+  roomStart1: {fileID: 5280787564404974327, guid: b190acc015a11b349871cd1266d74b41,
+    type: 3}
+  roomStart2: {fileID: 5586603704767714171, guid: 2eadddd6d6de9834eb6cc5a0334db267,
+    type: 3}
+  roomEnd1: {fileID: 2761914752629802, guid: 3fa17debfb158bc4d9a386616f5e39f0, type: 3}
+  roomEnd2: {fileID: 4425205633961544249, guid: bd3f4aae50f90e448b943cd455eadc63,
+    type: 3}
+  roomSecret: {fileID: 1728059688817079283, guid: 29583b2afb6bc1c4795f8deedafdbafc,
+    type: 3}
 --- !u!1 &2986395676179246292
 GameObject:
   m_ObjectHideFlags: 0
