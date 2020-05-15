@@ -15,7 +15,7 @@ public class Compteur : MonoBehaviour
     
     public Room roomStart1, roomStart2 , roomEnd1, roomEnd2, roomSecret;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Instance = this;
         text = GetComponent<Text>();

@@ -26,11 +26,14 @@ public class Room : MonoBehaviour {
     void Awake()
     {
         compteur= FindObjectOfType<Compteur>();
+        Debug.Log(compteur);
         compteur.enabled = true;
         compteur.DesactiveText();
         _tilemapGroup = GetComponentInChildren<TilemapGroup>();
-		allRooms.Add(this);
-	}
+        Debug.Log(_tilemapGroup);
+        allRooms.Add(this);
+        Debug.Log(allRooms);
+    }
 
 	private void OnDestroy()
 	{
