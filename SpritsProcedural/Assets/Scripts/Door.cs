@@ -23,6 +23,7 @@ public class Door : MonoBehaviour {
     public GameObject openGo = null;
     public GameObject wallGo = null;
     public GameObject secretGo = null;
+    
 
 	private Room _room = null;
 
@@ -58,18 +59,22 @@ public class Door : MonoBehaviour {
             case STATE.Wall:
                 if (Player.Instance.KeyCount > 0)
                 {
+                   
                     Player.Instance.KeyCount--;
                     SetState(STATE.OPEN);
 					Room nextRoom = GetNextRoom();
+                    
 					if(nextRoom)
 					{
-						Door[] doors = nextRoom.GetComponentsInChildren<Door>(true);
+                        Compteur.Instance.CompteurInscrease();
+                        Door[] doors = nextRoom.GetComponentsInChildren<Door>(true);
 						foreach(Door door in doors)
 						{
 							if (_orientation == Utils.OppositeOrientation(door.Orientation) && door._state == STATE.Wall)
 							{
 								door.SetState(STATE.OPEN);
-							}
+                                
+                            }
 						}
 					}
 				}
@@ -82,7 +87,8 @@ public class Door : MonoBehaviour {
 		Vector2Int dir = Utils.OrientationToDir(_orientation);
 		Room nextRoom = Room.allRooms.Find(x => x.position == _room.position + dir);
 		return nextRoom;
-	} 
+        
+    } 
 
     public void SetState(STATE state)
     {

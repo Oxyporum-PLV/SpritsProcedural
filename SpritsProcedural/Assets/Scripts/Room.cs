@@ -3,15 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Room : MonoBehaviour {
 
     public bool isStartRoom = false;
     public bool isEndRoom = false;
+    public bool isSecretRoom = false;
 	public Vector2Int position = Vector2Int.zero;
     //public bool up, down, left, right, openUp,openDown ,openLeft,openRight;
     //public int type;
-   
+    // Compteur :
+    public GameObject compteur;
+
     private TilemapGroup _tilemapGroup;
+    
 
     [Tooltip("Element0 = Right, Element1 = Left, Element2 = Top, Element3 = Bot")]
     public List<door> LiScDoor = new List<door>();
@@ -20,7 +25,8 @@ public class Room : MonoBehaviour {
 
     void Awake()
     {
-		_tilemapGroup = GetComponentInChildren<TilemapGroup>();
+        
+        _tilemapGroup = GetComponentInChildren<TilemapGroup>();
 		allRooms.Add(this);
 	}
 
@@ -30,18 +36,39 @@ public class Room : MonoBehaviour {
 	}
 
 	void Start () {
-        if(isStartRoom)
+
+        
+ 
+        if (isStartRoom)
         {
             OnEnterRoom();
+            compteur.SetActive(false);
         }
+       
+
+        if (isSecretRoom)
+        {
+            compteur.SetActive(false);
+        }
+        
+
+        if (isEndRoom)
+        {
+            compteur.SetActive(false);
+        }
+       
+
     }
-	
-	public void OnEnterRoom()
+
+
+    public void OnEnterRoom()
     {
         CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
         Bounds cameraBounds = _GetWorldRoomBounds();
         cameraFollow.SetBounds(cameraBounds);
 		Player.Instance.EnterRoom(this);
+        compteur.SetActive(true);
+       
     }
 
 
@@ -72,10 +99,7 @@ public class Room : MonoBehaviour {
 		return (_GetWorldRoomBounds().Contains(position));
 	}
 
-    public void RoomPosition()
-    {
-       
-    }
+    
 }
 
 [System.Serializable]
